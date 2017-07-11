@@ -2,10 +2,18 @@ import re
 
 
 class ListCompare:
+    """Accoring to exercise this class designed to compare lists and return list of matching list items.
+        In addition this class could compare not only a pair of lists but as many as you pass.
+        To generate
+    """
     def __init__(self, *lists):
         for listIndex in range(0, len(lists)):
             if isinstance(lists[listIndex], list) and len(lists[listIndex]) != 0:
                 self.__setattr__("list" + str(listIndex), lists[listIndex])
+
+    @classmethod
+    def from_random_date(cls):
+        
 
     def compare_all_lists(self):
         attributes = dir(self)
