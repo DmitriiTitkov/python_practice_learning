@@ -9,7 +9,7 @@ class CowsAndBulls:
         self.currentBet = ""
         self.cows = 0
         self.bulls = 0
-        self._rolledDigit = int()
+        self._rolledDigit = ''
 
     def set_number(self, length):
         str_min = "1"
@@ -37,7 +37,7 @@ class CowsAndBulls:
             print("{0} cows and {1} bulls.".format(cows, bulls))
 
     def play(self, length, cows=0, bulls=0):
-        bet = self.currentBet
+        bet = [digit for digit in self.currentBet]
         #playTable is not defined. The first guess
         if not self.playTable:
             for i in range(0, length):
@@ -46,28 +46,30 @@ class CowsAndBulls:
             self.currentBet = bet
             return bet
         else:
+            if isinstance(self._rolledDigit, str):
+                for i in range(0, len(self.playTable)):
+                    if len(self.playTable[i]) > 1:
+                        bet[i] = self._roll_digit(i)
+                        self.cows = cows
+                        self.bulls = bulls
+                        return bet
             #Number of cows has changed
             if cows > self.cows:
-                self.playTable[self._rolledDigit]= self.currentBet[self._rolledDigit]
-            elif cows < self.cows
+                self.playTable[self._rolledDigit] = self.currentBet[self._rolledDigit]
+            elif cows < self.cows:
                 self.playTable[self._rolledDigit] = self.lastBet[self._rolledDigit]
             else:
                 if self._rolledDigit:
-                    bet[self._rolledDigit] = self._rollDigit(self._rolledDigit)
+                    bet[self._rolledDigit] = self._roll_digit(self._rolledDigit)
+                    return bet
 
-    def _rollDigit(self, position):
+    def _roll_digit(self, position):
         self._rolledDigit = position
-
-
-
-
-
-
+        self.playTable[position].remove(int(self.currentBet[position]))
+        return random.choice(self.playTable[position])
 
 
 #if __name__ == '__main__':
 cowsAndBulls = CowsAndBulls(5)
-cowsAndBulls.guess("56787")
-cowsAndBulls.guess(56787)
-print(cowsAndBulls.play(5))
+print(cowsAndBulls.play(4))
 #print("I picked up a {0}-digit number. Can you guess it?".format(length))
