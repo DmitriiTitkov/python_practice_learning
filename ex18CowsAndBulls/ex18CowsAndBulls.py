@@ -67,7 +67,7 @@ class CowsAndBulls:
             else:
                 if self.bulls == bulls:
                     return self._bet_constructor('roll', cows=cows, bulls=bulls)
-                if self.bulls > bulls:
+                if self.bulls < bulls:
                     return self._bet_constructor('swap', cows=cows, bulls=bulls)
                 else:
                     ""
@@ -93,7 +93,7 @@ class CowsAndBulls:
                 self.currentBet[self._rolledDigit] = self._roll_digit(self._rolledDigit)
                 return self.currentBet
         if action == 'swap':
-            return self._swap_digit(self, self._rolledDigit + 1)
+            return self._swap_digit(self._rolledDigit + 1)
 
     @_digit_validator
     def _roll_digit(self, position):
@@ -109,7 +109,7 @@ class CowsAndBulls:
         copy_var = self.currentBet[self._rolledDigit]
         self.currentBet[self._rolledDigit] = self.currentBet[position]
         self.currentBet[position] = copy_var
-        return  self.currentBet
+        return self.currentBet
 
 
 
@@ -119,9 +119,9 @@ class CowsAndBulls:
 #if __name__ == '__main__':
 cowsAndBulls = CowsAndBulls(5)
 print(cowsAndBulls.play(4))
-#print(cowsAndBulls.play(4, 1, 0))
-#print(cowsAndBulls.play(4, 0, 0))
-#print(cowsAndBulls.play(4, 3, 0))
+print(cowsAndBulls.play(4, 1, 0))
+print(cowsAndBulls.play(4, 0, 0))
+print(cowsAndBulls.play(4, 1, 1))
 #print(cowsAndBulls.play(4, 4, 0))
 
 #print("I picked up a {0}-digit number. Can you guess it?".format(length))
